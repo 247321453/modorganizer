@@ -10,6 +10,7 @@ build:
 build_script:
 - cmd: >-
     dir c:\
+    
     git clone --depth=1 --branch=%APPVEYOR_REPO_BRANCH% https://github.com/247321453/modorganizer-umbrella.git c:\projects\modorganizer-umbrella 2> $null
 
     mkdir c:\projects\modorganizer-build -type directory
