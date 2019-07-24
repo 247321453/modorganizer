@@ -188,6 +188,7 @@ SET(organizer_HDRS
     loadmechanism.h
     installationmanager.h
     helper.h
+    my_bitset.h
     filedialogmemory.h
     executableslist.h
     editexecutablesdialog.h
