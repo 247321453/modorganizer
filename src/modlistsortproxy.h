@@ -21,7 +21,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #define MODLISTSORTPROXY_H
 
 #include <QSortFilterProxyModel>
-#include <bitset>
+#include "my_bitset.h"
 #include "modlist.h"
 
 class Profile;
@@ -134,7 +134,7 @@ private:
 
   std::vector<int> m_CategoryFilter;
   std::vector<int> m_ContentFilter;
-  std::bitset<ModList::COL_LASTCOLUMN + 1> m_EnabledColumns;
+  my::bitset<ModList::COL_LASTCOLUMN + 1> m_EnabledColumns;
   QString m_CurrentFilter;
 
   bool m_FilterActive;
