@@ -92,6 +92,7 @@ SET(organizer_SRCS
     categoriesdialog.cpp
     categories.cpp
     bbcode.cpp
+    my_bitset.cpp
     activatemodsdialog.cpp
     moapplication.cpp
     profileinputdialog.cpp
