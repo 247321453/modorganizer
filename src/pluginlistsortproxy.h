@@ -21,7 +21,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #define PLUGINLISTSORTPROXY_H
 
 
-#include <bitset>
+#include "my_bitset.h"
 #include <QSortFilterProxyModel>
 #include "pluginlist.h"
 
@@ -62,7 +62,7 @@ private:
   int m_SortIndex;
   Qt::SortOrder m_SortOrder;
 
-  std::bitset<PluginList::COL_LASTCOLUMN + 1> m_EnabledColumns;
+  my::bitset<PluginList::COL_LASTCOLUMN + 1> m_EnabledColumns;
   QString m_CurrentFilter;
 
 };
