@@ -1,7 +1,7 @@
 // std
 #include <algorithm>
 #include <assert.h>
-#include <bitset>
+#include "my_bitset.h"
 #include <cstdarg>
 #include <cstdint>
 #include <ctime>
