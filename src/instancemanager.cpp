@@ -143,7 +143,7 @@ QString InstanceManager::queryInstanceName(const QStringList &instanceList) cons
     // would be neat if we could take the names from the game plugins but
     // the required initialization order requires the ini file to be
     // available *before* we load plugins
-    dialog.setComboBoxItems({ "NewName", "Fallout 4", "SkyrimSE", "Skyrim", "SkyrimVR", "Fallout 3",
+    dialog.setComboBoxItems({ "NewName", "Monster Hunter:World", "Fallout 4", "SkyrimSE", "Skyrim", "SkyrimVR", "Fallout 3",
                               "Fallout NV", "TTW", "FO4VR", "Oblivion", "Morrowind", "Enderal" });
     dialog.setComboBoxEditable(true);
 
