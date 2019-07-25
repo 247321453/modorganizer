@@ -255,16 +255,16 @@ namespace mystd{
 			delete [] head;
 		}
 	public:
-		const_reference operator [] (bit_size pos) const 
+		bool operator [] (bit_size pos) const 
 		{
 			assert(pos < size());
-	        return reference(head,pos);
+	        return mystd::bit_read(head, pos);
 		}
 	
-		reference operator [] (bit_size pos)
+		bool operator [] (bit_size pos)
 		{
 			assert(pos < size());
-			return reference(head,pos);
+			return mystd::bit_read(head, pos);
 		}
  
 		bit_size size() const 
