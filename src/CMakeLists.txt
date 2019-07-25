@@ -72,7 +72,6 @@ SET(organizer_SRCS
     messagedialog.cpp
     mainwindow.cpp
     main.cpp
-    bit_util.cpp
     loghighlighter.cpp
     logbuffer.cpp
     lockeddialogbase.cpp
@@ -190,7 +189,6 @@ SET(organizer_HDRS
     installationmanager.h
     helper.h
     my_bitset.h
-    bit_util.h
     filedialogmemory.h
     executableslist.h
     editexecutablesdialog.h
