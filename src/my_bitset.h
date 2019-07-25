@@ -7,6 +7,7 @@
 #include <cstring>   // std::memset
 #include <exception>   
 #include <iostream>    
+#include "bit_util.h"
  
 #ifdef __cplusplus
  
