@@ -62,7 +62,7 @@ private:
   int m_SortIndex;
   Qt::SortOrder m_SortOrder;
 
-  my::bitset<PluginList::COL_LASTCOLUMN + 1> m_EnabledColumns;
+  mystd::bitset<PluginList::COL_LASTCOLUMN + 1> m_EnabledColumns;
   QString m_CurrentFilter;
 
 };
