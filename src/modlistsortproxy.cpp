@@ -385,21 +385,24 @@ bool ModListSortProxy::filterMatchesMod(ModInfo::Ptr info, bool enabled) const
         foundKeyword = false;
 
         //search keyword in name
-        if (m_EnabledColumns[ModList::COL_NAME] &&
+        bool b_enable = m_EnabledColumns[ModList::COL_NAME] == true;
+        if (b_enable &&
           info->name().contains(currentKeyword, Qt::CaseInsensitive)) {
           foundKeyword = true;
         }
 
         // Search by notes
+        b_enable = m_EnabledColumns[ModList::COL_NOTES] == true;
         if (!foundKeyword &&
-          m_EnabledColumns[ModList::COL_NOTES] &&
+          b_enable &&
           info->comments().contains(currentKeyword, Qt::CaseInsensitive)) {
           foundKeyword = true;
         }
 
         // Search by categories
+        b_enable = m_EnabledColumns[ModList::COL_CATEGORY] == true;
         if (!foundKeyword &&
-          m_EnabledColumns[ModList::COL_CATEGORY]) {
+          b_enable) {
           for (auto category : info->categories()) {
             if (category.contains(currentKeyword, Qt::CaseInsensitive)) {
               foundKeyword = true;
@@ -409,8 +412,9 @@ bool ModListSortProxy::filterMatchesMod(ModInfo::Ptr info, bool enabled) const
         }
 
         // Search by Nexus ID
+        b_enable = m_EnabledColumns[ModList::COL_MODID] == true;
         if (!foundKeyword &&
-          m_EnabledColumns[ModList::COL_MODID]) {
+          b_enable) {
           bool ok;
           int filterID = currentKeyword.toInt(&ok);
           if (ok) {
