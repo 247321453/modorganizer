@@ -7,8 +7,7 @@
 #include <cstring>   // std::memset
 #include <exception>   
 #include <iostream>    
-#include "bit_util.h"
- 
+
 #ifdef __cplusplus
  
 namespace mystd{
@@ -23,6 +22,54 @@ namespace mystd{
 		typedef unsigned long ULONG;
 		typedef unsigned long long ULLONG;
 		typedef unsigned char UCHAR;
+	public:
+		static unsigned char bit_get_true(std::size_t index) // 1 - 8
+		{
+			assert(index >= 1 && index <= 8);
+			return (unsigned char)1 << (index - 1) ;
+		}
+
+	    static unsigned char bit_get_false(std::size_t index)
+		{
+			assert(index >= 1 && index <= 8);
+			return ~bit_get_true(index);
+		}
+ 
+		static void bit_set_false(unsigned char& val, std::size_t index) // index (1 - 8)
+		{
+			assert(index >= 1 && index <= 8);
+			val &= bit_get_false(index);
+		}
+
+		static void bit_set_true( unsigned char& val, std::size_t index) // index (1 - 8) 
+		{
+			assert(index >= 1 && index <= 8);
+			val |= bit_get_true(index);
+		}
+ 
+		static void* bit_set(void* ptr, std::size_t pos, bool val = true)
+		{
+			assert(ptr != 0);
+			unsigned char *pointer = (unsigned char*)ptr;
+			std::size_t subpos = (pos + 7)/ 8 - 1; 
+			std::size_t index = (pos + 7) % 8  + 1;
+			if(val)
+				bit_set_true(pointer[subpos],index);
+			else
+				bit_set_false(pointer[subpos],index);
+			return ptr;
+		}
+ 
+		static bool bit_read(void *ptr, std::size_t pos) 
+		{
+			assert(ptr != 0);
+			unsigned char *pointer = (unsigned char*)ptr;
+			std::size_t subpos = (pos + 7)/ 8 - 1;  
+			std::size_t index = (pos  + 7) % 8 + 1;
+			unsigned char tmp_val = (pointer[subpos] >> (index - 1) ) & (unsigned char)1;
+			return tmp_val > 0;
+		}
+
 	private:
 		class ref{
 		private:
@@ -36,32 +83,33 @@ namespace mystd{
 			}
 		public:
 			self& operator = (const self& tmp)
-			{//mystd::set的pos以1开始计数,因此加1,以下都是如此
-				mystd::bit_set(head,position+1, mystd::bit_read(tmp.head,tmp.position+1));
+			{
+				//pos以1开始计数,因此加1,以下都是如此
+				bitset::bit_set(head,position+1, bitset::bit_read(tmp.head,tmp.position+1));
 				return *this;
 			}
 			self& operator = (const bool& tmp)
 			{
 				assert(head != 0);
-				mystd::bit_set(head,position + 1,tmp);
+				bitset::bit_set(head,position + 1,tmp);
 				return *this;
 			}
 			bool operator == (const bool& tmp) const 
 			{
 				assert(head != 0);
-				return mystd::bit_read(head,position + 1) == tmp;
+				return bitset::bit_read(head,position + 1) == tmp;
 			}
       
       bool operator && (const bool& tmp) const 
 			{
 				assert(head != 0);
-				return mystd::bit_read(head,position + 1) && tmp;
+				return bitset::bit_read(head,position + 1) && tmp;
 			}
       
       bool operator && (const self& tmp) const 
 			{
 				assert(head != 0);
-				return mystd::bit_read(head, position + 1) && mystd::bit_read(tmp.head, tmp.position + 1);
+				return bitset::bit_read(head, position + 1) && bitset::bit_read(tmp.head, tmp.position + 1);
 			}
       
 			bool operator != (const bool& tmp) const
@@ -72,8 +120,8 @@ namespace mystd{
 			bool operator == (const self& tmp) const 
 			{
 				assert(head != 0);
-				return mystd::bit_read(head,position + 1) == 
-					mystd::bit_read(tmp.head,tmp.position + 1);
+				return bitset::bit_read(head,position + 1) == 
+					bitset::bit_read(tmp.head,tmp.position + 1);
 			}
 			bool operator != (const self& tmp) const 
 			{
@@ -82,7 +130,7 @@ namespace mystd{
 			
 			friend std::ostream& operator << (std::ostream& os,const self& tmp)
 			{
-				return os << mystd::bit_read(const_cast<UCHAR*>(tmp.head),tmp.position + 1);
+				return os << bitset::bit_read(const_cast<UCHAR*>(tmp.head),tmp.position + 1);
 			}
 		};
  
@@ -94,12 +142,12 @@ namespace mystd{
 	private:   //内部使用的一些函数
 		bool read(void *ptr,bit_size pos) const   // 从0开始
 		{ // mystd里的read以1开始计数，在这里转换下,以下同理可得
-			return mystd::bit_read(ptr,pos+1);
+			return bitset::bit_read(ptr,pos+1);
 		}
 		void* set(void* ptr,bit_size pos,bool val = true) const  // 从0开始
 		{ //从逻辑上讲，不应该用const，为了通用性，加了个const
 		  // 也可以另外写一个非const版本
-			return mystd::bit_set(ptr,pos+1,val);
+			return bitset::bit_set(ptr,pos+1,val);
 		}
 		bit_size get_pos(bit_size pos) const   // 从0开始
 		{ // 举例说明，低位到高位假如有10位1000 0001 11 则最后一位getpos的结果为1,
