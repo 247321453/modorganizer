@@ -134,7 +134,7 @@ private:
 
   std::vector<int> m_CategoryFilter;
   std::vector<int> m_ContentFilter;
-  my::bitset<ModList::COL_LASTCOLUMN + 1> m_EnabledColumns;
+  mystd::bitset<ModList::COL_LASTCOLUMN + 1> m_EnabledColumns;
   QString m_CurrentFilter;
 
   bool m_FilterActive;
