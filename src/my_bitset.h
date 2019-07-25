@@ -97,6 +97,13 @@ namespace mystd{
 				assert(head != 0);
 				return mystd::bit_read(head,position + 1) == tmp;
 			}
+      
+      bool operator && (const bool& tmp) const 
+			{
+				assert(head != 0);
+				return mystd::bit_read(head,position + 1) && tmp;
+			}
+      
 			bool operator != (const bool& tmp) const
 			{
 			    assert(head != 0);
@@ -255,16 +262,16 @@ namespace mystd{
 			delete [] head;
 		}
 	public:
-		bool operator [] (bit_size pos) const 
+		const_reference operator [] (bit_size pos) const 
 		{
 			assert(pos < size());
-	        return mystd::bit_read(head, pos);
+	        return reference(head, pos);
 		}
 	
-		bool operator [] (bit_size pos)
+		reference operator [] (bit_size pos)
 		{
 			assert(pos < size());
-			return mystd::bit_read(head, pos);
+			return reference(head, pos);
 		}
  
 		bit_size size() const 
