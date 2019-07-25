@@ -104,6 +104,12 @@ namespace mystd{
 				return mystd::bit_read(head,position + 1) && tmp;
 			}
       
+      bool operator && (const self& tmp) const 
+			{
+				assert(head != 0);
+				return mystd::bit_read(head, position + 1) && mystd::bit_read(tmp.head, tmp.position + 1);
+			}
+      
 			bool operator != (const bool& tmp) const
 			{
 			    assert(head != 0);
